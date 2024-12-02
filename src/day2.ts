@@ -4,8 +4,6 @@ export const day2 = async () => {
   const lines = await readLines("puzzle-input/day2-input");
   const lists = lines.map((line) => line.trim().split(/\s+/).map(Number));
 
-  // the number of lines that satisfy both conditions
-
   let safe = 0;
   let safeWithSublists = 0;
   lines.forEach((line) => {
@@ -14,7 +12,6 @@ export const day2 = async () => {
     const ascSorted = [...list].sort((a, b) => a - b);
     const descSorted = [...list].sort((a, b) => b - a);
 
-    // check if list is ascSorted or descSorted
     const isAscendingOrDescending =
       ascSorted.every((num, i) => num === list[i]) ||
       descSorted.every((num, i) => num === list[i]);
@@ -32,9 +29,7 @@ export const day2 = async () => {
       safeWithSublists++;
     } else {
       // part 2
-      // create n sublists where n = length of list, each sublist should be the original list excluding 1 element
       const sublists = list.map((_, i) => list.filter((_, j) => j !== i));
-      // if any sublist is ascending or descending and has a minDiff of 1 and a maxDiff of 3, then it is safe
       const isSafe = sublists.some((sublist) => {
         const ascSorted = [...sublist].sort((a, b) => a - b);
         const descSorted = [...sublist].sort((a, b) => b - a);
