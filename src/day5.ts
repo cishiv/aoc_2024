@@ -19,7 +19,8 @@ export const day5 = async () => {
 
   let sumAll = 0;
   updates.forEach((update) => {
-    const sortedUpdate = part2_Swap(update, rules);
+    // const sortedUpdate = part2_Swap(update, rules);
+    const sortedUpdate = part2_SwapNonRecursive(update, rules);
     sumAll += part1_SumValidUpdateMidpoints(sortedUpdate, rules);
   });
   console.log("Part 1", sum);
@@ -41,6 +42,28 @@ const part2_Swap = (update: string, rules: string[]) => {
     }
   }
   return update;
+};
+
+const part2_SwapNonRecursive = (update: string, rules: string[]) => {
+  let updateParts = update.split(",");
+  let swapped = true;
+
+  while (swapped) {
+    swapped = false;
+
+    for (let i = 0; i < updateParts.length; i++) {
+      for (let j = i + 1; j < updateParts.length; j++) {
+        if (
+          rules.some((rule) => rule === updateParts[j] + "|" + updateParts[i])
+        ) {
+          updateParts = swap(updateParts, i, j);
+          swapped = true;
+        }
+      }
+    }
+  }
+
+  return updateParts.join(",");
 };
 
 const swap = (arr: string[], i: number, j: number) => {
