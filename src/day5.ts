@@ -1,5 +1,6 @@
 import { readLines } from ".";
 
+// Obviously can be a graph problem, but...does it need to be?
 export const day5 = async () => {
   const lines = await readLines("puzzle-input/day5-input");
 
